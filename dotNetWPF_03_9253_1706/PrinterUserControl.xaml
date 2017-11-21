@@ -34,9 +34,7 @@
             <ProgressBar.ToolTip>
                     <ToolTip x:Name="tooltip1">
                         <StackPanel>
-                     
-
-                            <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="auto"    VerticalAlignment="Top" Width="120"/>
+                            <TextBox x:Name="textBox1" HorizontalAlignment="Left"  Height="auto"    VerticalAlignment="Top" Width="auto" BorderThickness="0"  />
                         </StackPanel>
                     </ToolTip>
             </ProgressBar.ToolTip>

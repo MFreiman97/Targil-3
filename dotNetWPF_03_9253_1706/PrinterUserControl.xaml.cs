@@ -26,7 +26,7 @@ namespace dotNetWPF_03_9253_1706
 
         
             double per = (inkCountProgressBar.Value / inkCountProgressBar.Maximum) * 100;
-            textBox1.Text = per.ToString();
+            textBox1.Text = per.ToString() + "%";
 
         }
         /// <summary>
@@ -48,13 +48,17 @@ namespace dotNetWPF_03_9253_1706
             PrinterNameLabel.FontSize = 12;
         }
 
-
+        /// <summary>
+        /// when the level of the ink will be changed the data inside the textbox will be changed accordingly
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void inkCountProgressBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
 
             double per = (inkCountProgressBar.Value / inkCountProgressBar.Maximum) * 100;
             if(textBox1!=null)
-            textBox1.Text = per.ToString();
+            textBox1.Text = per.ToString() +"%";
 
         }
     }
