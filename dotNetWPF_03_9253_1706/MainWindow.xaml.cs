@@ -23,6 +23,8 @@ namespace dotNetWPF_03_9253_1706
         public MainWindow()
         {
             InitializeComponent();
+            
+            
         }
     }
 }
