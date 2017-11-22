@@ -81,8 +81,7 @@ namespace dotNetWPF_03_9253_1706
         
             double per = (inkCountProgressBar.Value / inkCountProgressBar.Maximum) * 100;
             textBox1.Text = per.ToString() + "%";
-            pageMissing += Printer_missing;
-            inkEmpty += ink_Missing;
+            
         }
         /// <summary>
         /// challenge 1
@@ -170,26 +169,7 @@ namespace dotNetWPF_03_9253_1706
 
             InkCount += i; 
         }
-        private void Printer_missing(object sender, PrinterEventArgs e)
-        {
-            this.PageLabel.Foreground=Brushes.Red ;
-            
-            MessageBox.Show("the time is: "+e.date.Date + "page missing is: " +int.Parse(e.error));//i used the field "Error" to indicate how many pages are missing
-
-        }
-        private void ink_Missing(object sender, PrinterEventArgs e)
-        {
-            if(e.error=="error 10-15")
-            this.inkLabel.Foreground = Brushes.Yellow;
-            if (e.error == "error 1-10")
-                this.inkLabel.Foreground = Brushes.Orange;
-            if(e.error == "error 0-1")
-                this.inkLabel.Foreground = Brushes.PaleVioletRed;
-
-            MessageBox.Show("the time is: " + e.date.Date + " ink count is: " + InkCount);
-
-
-        }
+      
 
         public double NextDouble(double minimum, double maximum)//implementing of nextdouble that get 2 elemnts
         {

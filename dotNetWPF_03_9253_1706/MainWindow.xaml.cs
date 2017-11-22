@@ -20,11 +20,57 @@ namespace dotNetWPF_03_9253_1706
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        PrinterUserControl CourentPrinter;
+        Queue<PrinterUserControl> queue;
+
         public MainWindow()
         {
             InitializeComponent();
-            
-            
+            queue = new Queue<PrinterUserControl>();
+
+            foreach (Control item in printersGrid.Children)
+            {
+                if (item is PrinterUserControl)
+                {
+                    PrinterUserControl printer = item as PrinterUserControl;
+                    printer.pageMissing += Printer_missing;//adding the functions to all the printers
+                    printer.inkEmpty += ink_Missing;
+                    queue.Enqueue(printer);
+                }
+            }
+            CourentPrinter = queue.Dequeue();
+
+
+        }
+
+        private void Printer_missing(object sender, PrinterEventArgs e)
+        {
+            PrinterUserControl p = sender as PrinterUserControl;
+           p.PageLabel.Foreground = Brushes.Red;
+
+            MessageBox.Show("the time is: " + e.date.Date + "page missing is: " + int.Parse(e.error));//i used the field "Error" to indicate how many pages are missing
+
+        }
+        private void ink_Missing(object sender, PrinterEventArgs e)
+        {
+            PrinterUserControl p = sender as PrinterUserControl;
+            if (e.error == "error 10-15")
+                p.inkLabel.Foreground = Brushes.Yellow;
+            if (e.error == "error 1-10")
+                p.inkLabel.Foreground = Brushes.Orange;
+            if (e.error == "error 0-1")
+                p.inkLabel.Foreground = Brushes.PaleVioletRed;
+
+            MessageBox.Show("the time is: " + e.date.Date + " ink count is: " + InkCount);
+
+
+        }
+
+        private void printButton_Click(object sender, RoutedEventArgs e)
+        {
+            CourentPrinter.printing();
+
         }
     }
 }
