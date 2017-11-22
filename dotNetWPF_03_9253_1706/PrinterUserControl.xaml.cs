@@ -20,12 +20,15 @@ namespace dotNetWPF_03_9253_1706
     /// </summary>
     public partial class PrinterUserControl : UserControl
     {
-        readonly double MAX_INK=100;
-        readonly double MIN_ADD_INK = 5;
-        readonly double MAX_PRINT_INK = 30;
-        readonly double MAX_PAGES = 400;
-        readonly double MIN_ADD_PAGES = 50;
-        readonly double MAX_PRINT_PAGES = 150;
+        static Random r = new Random();//to prevent inefficient programming
+        private static  int number = 0;
+        readonly int MAX_INK=100;
+        readonly int MIN_ADD_INK = 5;
+        readonly int MAX_PRINT_INK = 30;
+        readonly int MAX_PAGES = 400;
+        readonly int MIN_ADD_PAGES = 50;
+        readonly int MAX_PRINT_PAGES = 150;
+
         private string printerName;
 
         public string PrinterName
@@ -53,9 +56,13 @@ namespace dotNetWPF_03_9253_1706
         {
             get { return pagecount; }
             set
-            {
+            {  
+
+
                 pageCountSlider.Value = value;//making the change also in the gui
-                pagecount = value; }
+                pagecount = value;
+            
+            }
         }
 
 
@@ -63,16 +70,19 @@ namespace dotNetWPF_03_9253_1706
 
 
 
-        EventHandler<PrinterEventArgs> pageMissing;
-        EventHandler<PrinterEventArgs> inkEmpty;
+   public  EventHandler<PrinterEventArgs> pageMissing;
+     public   EventHandler<PrinterEventArgs> inkEmpty;
         public PrinterUserControl()
         {
-            InitializeComponent();
 
+            InitializeComponent();
+            number++;
+            PrinterName = "Printer " + number;
         
             double per = (inkCountProgressBar.Value / inkCountProgressBar.Maximum) * 100;
             textBox1.Text = per.ToString() + "%";
-
+            pageMissing += Printer_missing;
+            inkEmpty += ink_Missing;
         }
         /// <summary>
         /// challenge 1
@@ -106,5 +116,79 @@ namespace dotNetWPF_03_9253_1706
             textBox1.Text = per.ToString() +"%";
 
         }
+        public void printing()
+        {
+
+            int i=r.Next(0, (int)InkCount);
+            int p=r.Next(0, (MAX_PAGES));
+            if (pagecount - p <= 0)
+            {
+                int miss = -1 * (pagecount - p);
+                PageCount = 0;
+
+                pageMissing(this, new PrinterEventArgs(true, miss.ToString(), PrinterName));
+            }
+            else
+            {
+             
+                PageCount -= p;
+            }
+
+                  InkCount -= i;
+            if (InkCount <= 15 && InkCount >= 10)
+                inkEmpty(this, new PrinterEventArgs(false, "error 10-15", PrinterName));
+            if (InkCount <10 && InkCount >= 1)
+                inkEmpty(this, new PrinterEventArgs(false, "error 1-10", PrinterName));
+            if (InkCount < 1)
+                inkEmpty(this, new PrinterEventArgs(true, "error 0-1", PrinterName));//this sit is critical sit
+        }
+
+        public void AddPages()
+        {
+         
+
+            int p=r.Next(MIN_ADD_PAGES, MAX_PRINT_PAGES);
+
+            while (p+PageCount>MAX_PAGES)
+            {
+                p = r.Next(MIN_ADD_PAGES, MAX_PRINT_PAGES);
+
+            }
+
+            PageCount += p;
+        }
+        public void AddInk()
+        {
+        
+            int i=  r.Next(MIN_ADD_INK, MAX_PRINT_INK);
+            while (i + InkCount > MAX_INK)
+            {
+                i = r.Next(MIN_ADD_INK, MAX_PRINT_INK);
+
+            }
+
+            InkCount += i; 
+        }
+        private void Printer_missing(object sender, PrinterEventArgs e)
+        {
+            this.PageLabel.Foreground=Brushes.Red ;
+            
+            MessageBox.Show("the time is: "+e.date.Date + "page missing is: " +int.Parse(e.error));//i used the field "Error" to indicate how many pages are missing
+
+        }
+        private void ink_Missing(object sender, PrinterEventArgs e)
+        {
+            if(e.error=="error 10-15")
+            this.inkLabel.Foreground = Brushes.Yellow;
+            if (e.error == "error 1-10")
+                this.inkLabel.Foreground = Brushes.Orange;
+            if(e.error == "error 0-1")
+                this.inkLabel.Foreground = Brushes.PaleVioletRed;
+
+            MessageBox.Show("the time is: " + e.date.Date + " ink count is: " + InkCount);
+
+
+        }
+
     }
 }
