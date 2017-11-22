@@ -75,6 +75,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PrinterEventArgs.cs" />
     <Compile Include="PrinterUserControl.xaml.cs">
       <DependentUpon>PrinterUserControl.xaml</DependentUpon>
     </Compile>

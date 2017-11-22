@@ -20,6 +20,12 @@ namespace dotNetWPF_03_9253_1706
     /// </summary>
     public partial class PrinterUserControl : UserControl
     {
+
+
+
+
+         EventHandler<PrinterEventArgs> pageMissing;
+        EventHandler<PrinterEventArgs> inkEmpty;
         public PrinterUserControl()
         {
             InitializeComponent();
