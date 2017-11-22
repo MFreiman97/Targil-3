@@ -22,9 +22,9 @@ namespace dotNetWPF_03_9253_1706
     {
         static Random r = new Random();//to prevent inefficient programming
         private static  int number = 0;
-        readonly int MAX_INK=100;
-        readonly int MIN_ADD_INK = 5;
-        readonly int MAX_PRINT_INK = 30;
+        readonly double MAX_INK=100;
+        readonly double MIN_ADD_INK = 5;
+        readonly double MAX_PRINT_INK = 30;
         readonly int MAX_PAGES = 400;
         readonly int MIN_ADD_PAGES = 50;
         readonly int MAX_PRINT_PAGES = 150;
@@ -119,7 +119,7 @@ namespace dotNetWPF_03_9253_1706
         public void printing()
         {
 
-            int i=r.Next(0, (int)InkCount);
+           double i=NextDouble(0, InkCount);
             int p=r.Next(0, (MAX_PAGES));
             if (pagecount - p <= 0)
             {
@@ -160,10 +160,11 @@ namespace dotNetWPF_03_9253_1706
         public void AddInk()
         {
         
-            int i=  r.Next(MIN_ADD_INK, MAX_PRINT_INK);
+            double i=  NextDouble(MIN_ADD_INK, MAX_PRINT_INK);
+            
             while (i + InkCount > MAX_INK)
             {
-                i = r.Next(MIN_ADD_INK, MAX_PRINT_INK);
+                i =NextDouble(MIN_ADD_INK, MAX_PRINT_INK);
 
             }
 
@@ -190,5 +191,10 @@ namespace dotNetWPF_03_9253_1706
 
         }
 
+        public double NextDouble(double minimum, double maximum)//implementing of nextdouble that get 2 elemnts
+        {
+     
+            return r.NextDouble() * (maximum - minimum) + minimum;
+        }
     }
 }
