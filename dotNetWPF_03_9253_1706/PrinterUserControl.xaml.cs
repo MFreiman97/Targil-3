@@ -18,6 +18,9 @@ namespace dotNetWPF_03_9253_1706
     /// <summary>
     /// Interaction logic for PrinterUserControl.xaml
     /// </summary>
+    /// 
+
+
     public partial class PrinterUserControl : UserControl
     {
         static Random r = new Random();//to prevent inefficient programming
@@ -25,9 +28,16 @@ namespace dotNetWPF_03_9253_1706
         readonly double MAX_INK=100;
         readonly double MIN_ADD_INK = 5;
         readonly double MAX_PRINT_INK = 30;
-        readonly int MAX_PAGES = 400;
+  static     readonly int MAX_PAGES = 400;
         readonly int MIN_ADD_PAGES = 50;
         readonly int MAX_PRINT_PAGES = 150;
+        public static double MaxPages
+        {
+            get
+            { return MAX_PAGES; }
+           
+        }
+  
 
         private string printerName;
 
@@ -68,8 +78,6 @@ namespace dotNetWPF_03_9253_1706
 
 
 
-
-
    public  EventHandler<PrinterEventArgs> pageMissing;
      public   EventHandler<PrinterEventArgs> inkEmpty;
         public PrinterUserControl()
@@ -78,9 +86,11 @@ namespace dotNetWPF_03_9253_1706
             InitializeComponent();
             number++;
             PrinterName = "Printer " + number;
-        
+            PageCount = MAX_PAGES;
+            InkCount = MAX_INK;
+
             double per = (inkCountProgressBar.Value / inkCountProgressBar.Maximum) * 100;
-            textBox1.Text = per.ToString() + "%";
+            textBox1.Text = String.Format("{0:0.00}%  ",per);
             
         }
         /// <summary>
@@ -112,24 +122,24 @@ namespace dotNetWPF_03_9253_1706
 
             double per = (inkCountProgressBar.Value / inkCountProgressBar.Maximum) * 100;
             if(textBox1!=null)
-            textBox1.Text = per.ToString() +"%";
+            textBox1.Text = String.Format("{0:0.00}%  ", per);
 
         }
         public void printing()
         {
 
            double i=NextDouble(0, InkCount);
-            int p=r.Next(0, (MAX_PAGES));
-            if (pagecount - p <= 0)
+            int p=r.Next(0, MAX_PRINT_PAGES);
+            if (PageCount - p <= 0)
             {
-                int miss = -1 * (pagecount - p);
+                int miss = -1 * (PageCount - p);
                 PageCount = 0;
 
                 pageMissing(this, new PrinterEventArgs(true, miss.ToString(), PrinterName));
             }
             else
             {
-             
+         
                 PageCount -= p;
             }
 
@@ -175,6 +185,12 @@ namespace dotNetWPF_03_9253_1706
         {
      
             return r.NextDouble() * (maximum - minimum) + minimum;
+        }
+
+        private void pageCountSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            PageCount = (int)e.NewValue;
+
         }
     }
 }

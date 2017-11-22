@@ -50,6 +50,8 @@ namespace dotNetWPF_03_9253_1706
            p.PageLabel.Foreground = Brushes.Red;
 
             MessageBox.Show("the time is: " + e.date.Date + "page missing is: " + int.Parse(e.error));//i used the field "Error" to indicate how many pages are missing
+            if(p==CourentPrinter)//the  term is neccesary when the ink was over and also the pages were over . so i dont want to skip over printer !
+                CriticalSit();//the situation of missing pages is always critical situation
 
         }
         private void ink_Missing(object sender, PrinterEventArgs e)
@@ -62,7 +64,10 @@ namespace dotNetWPF_03_9253_1706
             if (e.error == "error 0-1")
                 p.inkLabel.Foreground = Brushes.PaleVioletRed;
 
-            MessageBox.Show("the time is: " + e.date.Date + " ink count is: " + InkCount);
+           
+            MessageBox.Show("the time is: " + e.date.ToString() + "\n"+"ink count is: " + string.Format("{0:0.00}%", p.InkCount));
+            if (e.crit == true && p == CourentPrinter)//the second term is neccesary when the ink was over and also the pages were over . so i dont want to skip over printer !
+                CriticalSit();
 
 
         }
@@ -71,6 +76,13 @@ namespace dotNetWPF_03_9253_1706
         {
             CourentPrinter.printing();
 
+        }
+        private void CriticalSit()//changing the printer when a critical situation occured
+        {
+            PrinterUserControl temp = CourentPrinter;
+
+            CourentPrinter = queue.Dequeue();
+            queue.Enqueue(temp);
         }
     }
 }

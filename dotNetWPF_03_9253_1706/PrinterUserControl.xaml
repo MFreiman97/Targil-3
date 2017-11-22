@@ -2,7 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:dotNetWPF_03_9253_1706"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300" BorderThickness="1"  BorderBrush="Black">
@@ -29,7 +30,7 @@
             </Grid.RowDefinitions>
             <Label x:Name="inkLabel" Content="Ink: " HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Height="24" Width="90"/>
             <Label x:Name="PageLabel" Content="Page" HorizontalAlignment="Left" Margin="10,8,0,0" Grid.Row="1" VerticalAlignment="Top" Width="50" Foreground="Black"/>
-            <Slider x:Name="pageCountSlider" Grid.Column="1" HorizontalAlignment="Left" Margin="10,8,0,0" Grid.Row="1" VerticalAlignment="Top" Value="200"  Maximum="400" />
+            <Slider x:Name="pageCountSlider" Grid.Column="1" HorizontalAlignment="Left"  Grid.Row="1" VerticalAlignment="Top" Value="400"  Maximum="{x:Static local:PrinterUserControl.MaxPages}" Width="130" ValueChanged="pageCountSlider_ValueChanged" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0"/>
             <ProgressBar x:Name="inkCountProgressBar" Value="50" Grid.Column="1"  HorizontalAlignment="Left" Height="24" Margin="10,5,0,0" VerticalAlignment="Top" Width="100" ValueChanged="inkCountProgressBar_ValueChanged" >
             <ProgressBar.ToolTip>
                     <ToolTip x:Name="tooltip1">

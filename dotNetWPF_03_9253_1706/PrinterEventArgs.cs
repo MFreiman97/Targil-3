@@ -17,6 +17,8 @@ namespace dotNetWPF_03_9253_1706
             this.error = error;
             this.name = name;
             this.crit = c;
+            date =  DateTime.Now;
+
         }  
     }
 }
