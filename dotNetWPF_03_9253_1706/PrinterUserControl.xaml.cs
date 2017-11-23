@@ -27,10 +27,10 @@ namespace dotNetWPF_03_9253_1706
         private static  int number = 0;
         readonly double MAX_INK=100;
         readonly double MIN_ADD_INK = 5;
-        readonly double MAX_PRINT_INK = 30;
+        readonly double MAX_PRINT_INK = 20;
   static     readonly int MAX_PAGES = 400;
         readonly int MIN_ADD_PAGES = 50;
-        readonly int MAX_PRINT_PAGES = 150;
+        readonly int MAX_PRINT_PAGES = 100;
         public static double MaxPages
         {
             get
@@ -57,8 +57,10 @@ namespace dotNetWPF_03_9253_1706
             get { return inkcount; }
             set
             {
+                
                 inkCountProgressBar.Value = value;//making the change also in the gui
-                inkcount = value; }
+                inkcount = value;
+            }
         }
         private int pagecount;
 
@@ -128,7 +130,7 @@ namespace dotNetWPF_03_9253_1706
         public void printing()
         {
 
-           double i=NextDouble(0, InkCount);
+           double i=NextDouble(0, MAX_PRINT_INK);
             int p=r.Next(0, MAX_PRINT_PAGES);
             if (PageCount - p <= 0)
             {
@@ -158,13 +160,14 @@ namespace dotNetWPF_03_9253_1706
 
             int p=r.Next(MIN_ADD_PAGES, MAX_PRINT_PAGES);
 
-            while (p+PageCount>MAX_PAGES)
+            while (p+PageCount>MAX_PAGES)//TO PREVENT SITUATION OF VALUE ABOVE THE MAXIMUM
             {
                 p = r.Next(MIN_ADD_PAGES, MAX_PRINT_PAGES);
 
             }
 
             PageCount += p;
+            PageLabel.Foreground = Brushes.Black;//returning the color to the genuine color
         }
         public void AddInk()
         {
@@ -177,7 +180,8 @@ namespace dotNetWPF_03_9253_1706
 
             }
 
-            InkCount += i; 
+            InkCount += i;
+            inkLabel.Foreground = Brushes.Black;//returning the color to the genuine color 
         }
       
 

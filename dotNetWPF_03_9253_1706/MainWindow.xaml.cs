@@ -48,11 +48,13 @@ namespace dotNetWPF_03_9253_1706
         {
             PrinterUserControl p = sender as PrinterUserControl;
            p.PageLabel.Foreground = Brushes.Red;
-
-            MessageBox.Show("the time is: " + e.date.Date + "page missing is: " + int.Parse(e.error));//i used the field "Error" to indicate how many pages are missing
-            if(p==CourentPrinter)//the  term is neccesary when the ink was over and also the pages were over . so i dont want to skip over printer !
+            MessageBox.Show("the time is: " + e.date.ToString() +"\n"+ "page missing is: " + int.Parse(e.error), "ERROR: "+e.name+"- pages misssing", MessageBoxButton.OK, MessageBoxImage.Error);
+            //i used the field "Error" to indicate how many pages are missing
+                 p.AddPages();
+            if (p == CourentPrinter)//the  term is neccesary when the ink was over and also the pages were over . so i dont want to skip over printer !
+            {
                 CriticalSit();//the situation of missing pages is always critical situation
-
+            }
         }
         private void ink_Missing(object sender, PrinterEventArgs e)
         {
@@ -62,25 +64,35 @@ namespace dotNetWPF_03_9253_1706
             if (e.error == "error 1-10")
                 p.inkLabel.Foreground = Brushes.Orange;
             if (e.error == "error 0-1")
-                p.inkLabel.Foreground = Brushes.PaleVioletRed;
+                p.inkLabel.Foreground = Brushes.Red;
+            if (e.crit == false)
+                MessageBox.Show("the time is: " + e.date.ToString() + "\n" + "ink count is: " + string.Format("{0:0.00}%", p.InkCount), "WARNING: " + e.name+"- low ink level", MessageBoxButton.OK, MessageBoxImage.Warning);
+            else
+            {
+                MessageBox.Show("the time is: " + e.date.ToString() + "\n" + "ink count is: " + string.Format("{0:0.00}%", p.InkCount), "ERROR: "+e.name+"- ink missing", MessageBoxButton.OK, MessageBoxImage.Error);
+                p.AddInk();
 
-           
-            MessageBox.Show("the time is: " + e.date.ToString() + "\n"+"ink count is: " + string.Format("{0:0.00}%", p.InkCount));
-            if (e.crit == true && p == CourentPrinter)//the second term is neccesary when the ink was over and also the pages were over . so i dont want to skip over printer !
-                CriticalSit();
+            }
+            if (e.crit == true && p == CourentPrinter)
+               {                 //the second term is neccesary when the ink was over and also the pages were over . so i dont want to skip over printer !
 
+                    CriticalSit();
+                }
+            
 
-        }
+            }
+        
 
         private void printButton_Click(object sender, RoutedEventArgs e)
         {
+            PrinterWORK.Text = CourentPrinter.PrinterName;
             CourentPrinter.printing();
 
         }
         private void CriticalSit()//changing the printer when a critical situation occured
         {
             PrinterUserControl temp = CourentPrinter;
-
+            
             CourentPrinter = queue.Dequeue();
             queue.Enqueue(temp);
         }
