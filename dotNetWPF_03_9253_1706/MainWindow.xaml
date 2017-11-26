@@ -24,7 +24,7 @@
         </Grid>
 
         <Button x:Name="printButton" Content="Print"  Height="auto" Grid.Row="1"  Width="auto" FontSize="36" Margin="10,24,28,0" Click="printButton_Click"/>
-        <TextBox x:Name="WhoIsPrinting1" HorizontalAlignment="Left" Height="19"  Grid.Row="1" TextWrapping="Wrap" Text="THE ACTIVE PRINTER IS: " VerticalAlignment="Top" Width="135" IsReadOnly="True" Margin="1,0,0,0" IsUndoEnabled="False" BorderBrush="Black" IsEnabled="False" IsReadOnlyCaretVisible="True"/>
+        <TextBox x:Name="WhoIsPrinting1" HorizontalAlignment="Left" Height="19"  Grid.Row="1" TextWrapping="Wrap" Text="THE ACTIVE PRINTER IS: " VerticalAlignment="Top" Width="auto" IsReadOnly="True" Margin="1,0,0,0" IsUndoEnabled="False" BorderBrush="Black" IsEnabled="False" IsReadOnlyCaretVisible="True"/>
         <TextBox x:Name="PrinterWORK" HorizontalAlignment="Left" Margin="140,0,0,0" Height="19" Grid.Row="1" TextWrapping="Wrap" Width="107" VerticalAlignment="Top" IsReadOnly="True"  BorderBrush="Black" IsEnabled="False" IsReadOnlyCaretVisible="True"/>
 
 

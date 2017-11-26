@@ -26,7 +26,7 @@ namespace dotNetWPF_03_9253_1706
         static Random r = new Random();//to prevent inefficient programming
         private static  int number = 0;
         readonly double MAX_INK=100;
-        readonly double MIN_ADD_INK = 5;
+        readonly double MIN_ADD_INK = 20;
         readonly double MAX_PRINT_INK = 20;
   static     readonly int MAX_PAGES = 400;
         readonly int MIN_ADD_PAGES = 50;
@@ -144,8 +144,16 @@ namespace dotNetWPF_03_9253_1706
          
                 PageCount -= p;
             }
+            if (InkCount - i >= 0)
+            {
 
-                  InkCount -= i;
+                InkCount -= i;
+            }
+
+            else
+            {
+                InkCount = 0;
+            }
             if (InkCount <= 15 && InkCount >= 10)
                 inkEmpty(this, new PrinterEventArgs(false, "error 10-15", PrinterName));
             if (InkCount <10 && InkCount >= 1)

@@ -28,10 +28,10 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <Label x:Name="inkLabel" Content="Ink: " HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Height="24" Width="90"/>
-            <Label x:Name="PageLabel" Content="Page" HorizontalAlignment="Left" Margin="10,8,0,0" Grid.Row="1" VerticalAlignment="Top" Width="50" Foreground="Black"/>
-            <Slider x:Name="pageCountSlider" Grid.Column="1" HorizontalAlignment="Left"  Grid.Row="1" VerticalAlignment="Top" Value="400"  Maximum="{x:Static local:PrinterUserControl.MaxPages}" Width="130" ValueChanged="pageCountSlider_ValueChanged" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0"/>
-            <ProgressBar x:Name="inkCountProgressBar" Value="50" Grid.Column="1"  HorizontalAlignment="Left" Height="24" Margin="10,5,0,0" VerticalAlignment="Top" Width="100" ValueChanged="inkCountProgressBar_ValueChanged" >
+            <Label x:Name="inkLabel" Content="Ink: " HorizontalAlignment="Left" Margin="14,3,0,0" VerticalAlignment="Top" Height="24" Width="90" Grid.ColumnSpan="2"/>
+            <Label x:Name="PageLabel" Content="Page" HorizontalAlignment="Stretch" Margin="10,8,0,0" Grid.Row="1" VerticalAlignment="Top" Width="50" Foreground="Black"/>
+            <Slider x:Name="pageCountSlider" Grid.Column="1" HorizontalAlignment="Stretch"  Grid.Row="1" VerticalAlignment="Top" Value="400"  Maximum="{x:Static local:PrinterUserControl.MaxPages}" Width="auto" ValueChanged="pageCountSlider_ValueChanged" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" Margin="26,5,42,0"/>
+            <ProgressBar x:Name="inkCountProgressBar" Value="50" Grid.Column="1"  HorizontalAlignment="Stretch" Height="24" Margin="18,3,45,0" VerticalAlignment="Top" ValueChanged="inkCountProgressBar_ValueChanged" >
                 <ProgressBar.ToolTip>
                     <ToolTip x:Name="tooltip1">
                         <StackPanel>
