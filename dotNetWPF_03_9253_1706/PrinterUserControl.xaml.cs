@@ -24,7 +24,7 @@ namespace dotNetWPF_03_9253_1706
     public partial class PrinterUserControl : UserControl
     {
         static Random r = new Random();//to prevent inefficient programming
-        private static  int number = 0;
+        private static  int number = 0;//to name the printers
         readonly double MAX_INK=100;
         readonly double MIN_ADD_INK = 20;
         readonly double MAX_PRINT_INK = 20;
@@ -96,7 +96,7 @@ namespace dotNetWPF_03_9253_1706
             
         }
         /// <summary>
-        /// challenge 1
+        /// challenge 1-the function is will be work when the mouse move on the label
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -106,7 +106,11 @@ namespace dotNetWPF_03_9253_1706
             PrinterNameLabel.Width = 130;
             PrinterNameLabel.FontSize = 20;
         }
-
+        /// <summary>
+        /// i want the label return to the previous show
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void PrinterNameLabel_MouseLeave(object sender, MouseEventArgs e)
         {
             PrinterNameLabel.Height = 26;
@@ -127,6 +131,9 @@ namespace dotNetWPF_03_9253_1706
             textBox1.Text = String.Format("{0:0.00}%  ", per);
 
         }
+        /// <summary>
+        /// simulation of printing .if the level of the ink or pages will be missing, the events will turn on 
+        /// </summary>
         public void printing()
         {
 
@@ -161,7 +168,9 @@ namespace dotNetWPF_03_9253_1706
             if (InkCount < 1)
                 inkEmpty(this, new PrinterEventArgs(true, "error 0-1", PrinterName));//this sit is critical sit
         }
-
+        /// <summary>
+        /// will work if the pages level is critical
+        /// </summary>
         public void AddPages()
         {
          
