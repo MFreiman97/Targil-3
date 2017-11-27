@@ -43,7 +43,11 @@ namespace dotNetWPF_03_9253_1706
 
 
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Printer_missing(object sender, PrinterEventArgs e)
         {
             PrinterUserControl p = sender as PrinterUserControl;
