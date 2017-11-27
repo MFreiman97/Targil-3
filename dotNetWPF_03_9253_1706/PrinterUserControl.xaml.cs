@@ -186,6 +186,9 @@ namespace dotNetWPF_03_9253_1706
             PageCount += p;
             PageLabel.Foreground = Brushes.Black;//returning the color to the genuine color
         }
+        /// <summary>
+        /// will work if the ink level is critical
+        /// </summary>
         public void AddInk()
         {
         
